@@ -1,0 +1,69 @@
+<h1>WTG Data Search</h1>
+<div id="searchDiv" style="width:100%;margin-left:auto;margin-right:auto;">
+<table style="width:600px;">
+<tr><th>State</th><th>County</th><th>Town</th></tr>
+<tr>
+	<td>
+		<%=  select_tag "states", options_for_select(@states.collect { | s| s.name }, @selected_state) %>
+	</td>
+	<td>
+		<%=  select_tag "counties", options_for_select(@counties.collect { | s| s.name }, @selected_county) %>
+	</td>		
+	<td>
+		<%=  select_tag "towns", options_for_select(@towns.collect { | s| s.name }, @selected_town) %>
+	</td>
+</tr>
+</table>
+<br/>
+Found <%= @results.size %> matching results <br/>
+</div>
+<div id="results">
+	<table id="results" >
+		<tr><th>County</th>
+			<th>Town</th>
+			<th>SPF Level Processed</th>
+			<th>County GIS Viewer</th>
+			<th>Town GIS Viewer</th></tr>
+		<% @results.each do | row | %>
+		  <tr class="results-row"><td><%= row.y %><td><%= row.z %><td><%= row.k %></td><td><%= row.as %></td><td><%= row.at %></td></tr>
+		<% end %>
+	</table>
+</div>
+<br/><br/>
+
+<script>
+ $("#states").change( function() {
+  		window.location = "/home/search/?state=" + this.value;
+	}
+  );
+ $("#counties").change( function() {
+ 	    if (this.value == 'ALL') {
+  			window.location = "/home/search/?state=<%= @selected_state %>"; 	    	
+  		} else {
+  			window.location = "/home/search/?state=<%= @selected_state %>&county=" + this.value;
+  		}
+	}
+  );  
+$("#towns").change( function() {
+	 if (this.value == 'ALL') {
+  		window.location = "/home/search/?state=<%= @selected_state %>&county=<%= @selected_county %>";
+	  } else {
+  		window.location = "/home/search/?state=<%= @selected_state %>&county=<%= @selected_county %>&town=" + this.value;	  	
+	  }
+	}
+  );   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>if (window.addEventListener){ window.addEventListener("message", function(event) { if(event.data.length >= 22) { if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT") location = event.data.substr(22); } }, false); } else if (window.attachEvent){ window.attachEvent("message", function(event) { if( event.data.length >= 22) { if ( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT") location = event.data.substr(22); } }, false); } </script>	

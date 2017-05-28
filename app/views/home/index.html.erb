@@ -1,0 +1,33 @@
+<h1>WTG Data Search</h1>
+<div id="searchDiv" style="width:100%;margin-left:auto;margin-right:auto;">
+<table style="width:600px;">
+<tr><th>State</th></tr>
+<tr>
+	<td>
+		<%=  select_tag "states", options_from_collection_for_select(@states, "name", "name") %>
+	</td>
+</tr>
+</table>
+</div>
+<br/><br/>
+<div id="mapDiv" style="width:100%;margin-left:auto;margin-right:auto;">
+<iframe src="https://createaclickablemap.com/map.php?&id=59226&online=true" width="900" height="525" style="border: none;"></iframe>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+ $("#states").change( function() {
+  		window.location = "/home/search/?state=" + this.value;
+	}
+  );
+</script>
+<script>if (window.addEventListener){ window.addEventListener("message", function(event) { if(event.data.length >= 22) { if( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT") location = event.data.substr(22); } }, false); } else if (window.attachEvent){ window.attachEvent("message", function(event) { if( event.data.length >= 22) { if ( event.data.substr(0, 22) == "__MM-LOCATION.REDIRECT") location = event.data.substr(22); } }, false); } </script>	
